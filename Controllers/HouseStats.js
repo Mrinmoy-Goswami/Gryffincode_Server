@@ -6,9 +6,11 @@ const getHouseDetails = asynchandler(async(req,res)=>{
         {$group:{
                 _id:"$house",
                 numberofUsers : {$sum:1},
-                totalHousePoints:{$sum:"$housePoints"}
+                totalHousePoints:{$sum:"$housePoints"},
+                users:{$push:{username:"$username",points:"$housePoints"}}
         }
     },
+   
     {
         $sort:{totalHousePoints : -1}
     }

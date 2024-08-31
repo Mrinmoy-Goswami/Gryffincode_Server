@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const authRoute = require('./Routes/Auth')
 const problemRoute = require('./Routes/Problems')
 const submitRoute = require('./Routes/CodeJudge')
+const statRoute = require('./Routes/Stats')
 
 app.use(express.json())
 app.use(cors());
@@ -19,6 +20,7 @@ mongoose.connect(process.env.MONGO_URL,{
 app.use('/auth',authRoute)
 app.use('/problem',problemRoute)
 app.use('/judge',submitRoute)
+app.use("/stats",statRoute)
 
 app.listen(4000,()=>{
     console.log("Server Started!")

@@ -75,7 +75,7 @@ const assignHouse = asyncHandler(async (req, res) => {
   } catch (error) {
 
     console.error("Error updating user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" , error});
   }
 });
 

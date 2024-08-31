@@ -3,11 +3,11 @@ const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
 
 //Generating a token for authorizations
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "5d",
-  });
-};
+// const generateToken = (id) => {
+//   return jwt.sign({ id }, process.env.JWT_SECRET, {
+//     expiresIn: "5d",
+//   });
+// };
 //Function for registering a user
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password} = req.body;
@@ -69,7 +69,7 @@ const assignHouse = asyncHandler(async (req, res) => {
     const userExists = await User.findById(id);
     userExists.house = house;
     await(userExists.save())
-   res.json(userExists);
+    return res.json(userExists);
  
    
   } catch (error) {

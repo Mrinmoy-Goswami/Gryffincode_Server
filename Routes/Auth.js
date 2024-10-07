@@ -1,4 +1,5 @@
 const router = require('express').Router();
+// const {protect} = require('../Middleware/authMiddleware')
 const {registerUser, loginUser , assignHouse,userDetails} = require('../Controllers/userController')
 
 const bcrypt = require('bcrypt');

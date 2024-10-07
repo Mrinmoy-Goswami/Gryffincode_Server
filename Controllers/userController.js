@@ -2,12 +2,12 @@ const asyncHandler = require("express-async-handler");
 const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
 
-//Generating a token for authorizations
-// const generateToken = (id) => {
-//   return jwt.sign({ id }, process.env.JWT_SECRET, {
-//     expiresIn: "5d",
-//   });
-// };
+// Generating a token for authorizations
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "5d",
+  });
+};
 //Function for registering a user
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password} = req.body;
@@ -34,8 +34,17 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     house:null
   });
-  if (user) {
-    res.status(200).json(user);
+  if (user ) {
+    res.status(200).json({
+      _id:user._id,
+      username:user.username,
+      email:user.email,
+      house:user.house,
+      housePoints:user.housePoints,
+      title:user.title,
+      solvedProblems:user.solvedProblems,
+     token:generateToken(user._id)
+    });
   } else {
     res.status(400).json("User could not be created at this moment !");
   }
@@ -52,8 +61,17 @@ const loginUser = asyncHandler(async (req, res) => {
   } else if (password !== user.password) {
     res.status(400).json("Wrong Credentials !");
   } else if (user) {
-      user.password = ""
-      res.status(200).json(user);
+      
+      res.status(200).json({
+        _id:user._id,
+        username:user.username,
+        email:user.email,
+        house:user.house,
+        housePoints:user.housePoints,
+        title:user.title,
+        solvedProblems:user.solvedProblems,
+        token:generateToken(user._id)
+      });
     
   }
 });
